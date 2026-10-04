@@ -242,12 +242,14 @@ $\lfloor n/2 \rfloor - 2$ faces of type $C$.
 \begin{proof}
 A face of type $A$ uses two boundary edges, a face of type $B$ one, a face of
 type $C$ none, and all $n$ boundary edges are used exactly once, so if the face
-counts are $(\alpha, \beta, \gamma)$ then $2\alpha + \beta = n$.
-The dual tree has $n-2$ nodes of degrees $1$, $2$, $3$; counting gives
-$\alpha + \beta + \gamma = n-2$ and, by the degree-sum formula for a tree,
-$\beta + 3\gamma = n - 3$. Solving the three equations with $\alpha = e$ yields
-$\beta = n - 2e$ and $\gamma = e - 2$. Since ears are pairwise non-adjacent
-vertices, $e \le \lfloor n/2 \rfloor$; and $e \ge 2$ by the two-ears theorem.
+counts are $(\alpha, \beta, \gamma)$ then
+\[
+  2\alpha + \beta = n \qquad\text{and}\qquad \alpha + \beta + \gamma = n-2 .
+\]
+Taking $\alpha = e$ and solving gives $\beta = n - 2e$ and $\gamma = e - 2$; the
+dual tree supplies no further equation, since $\alpha + 2\beta + 3\gamma = 2(n-3)$
+follows from the two above. Since ears are pairwise non-adjacent vertices,
+$e \le \lfloor n/2 \rfloor$; and $e \ge 2$ by the two-ears theorem.
 \end{proof}
 
 \begin{proposition}[Maximal ears are rare]\label{prop:maxears}
@@ -355,11 +357,12 @@ elements $x, z$ of $F$ have $M-1$ interior vertices on one arc. The other arc
 then has $(2M-2)-(M-1) = M-1$ interior vertices, so $\{x,z\} = \{v, v+M\}$. The
 gap is unique because two gaps of size $M-1$ would sum to $2M-2 > 2M-3 = n-3$.
 
-(ii) Distinct antipodal chords $\{v, v+M\}$ and $\{w, w+M\}$ cross, so they cannot
-both lie in a triangulation unless they coincide (if $w \ne v$ then, say,
-$v < w < v + M < w + M$ cyclically, which is an interleaving). By (i) all such
-faces contain one and the same chord, and a triangulation has exactly two faces
-incident to any of its diagonals.
+(ii) All antipodal chords of $\Pol_n$ pass through the centre of the polygon, so
+any two of them cross; in particular two distinct ones cannot both lie in a
+triangulation. By (i) all faces with $\maxgap = M-1$ contain one and the same
+chord, and a triangulation has exactly two faces incident to any of its
+diagonals. (Equivalently, with vertices read in cyclic order, $\{v,v+M\}$ and
+$\{w,w+M\}$ with $w \ne v$ interleave.)
 
 (iii) Let $\{v, v+M\}$ be the chord from (i) and let $F$ have all gaps at most
 $M-2$. Since $F$ does not cross $\{v, v+M\}$, all three of its vertices lie in one
@@ -402,7 +405,8 @@ Triples correspond to cyclic gap-triples: choosing a starting vertex $a \in V$
 together with $(g_1, g_2, g_3)$ with $g_i \ge 0$ and $\sum g_i = n-3$ produces
 the triple $\{a, a+g_1+1, a+g_1+g_2+2\}$, and every triple is produced exactly
 three times, once per choice of $a$. Hence a set of gap-triples $\mathcal{G}$
-corresponds to $\frac{n}{3}\,|\mathcal{G}|$ triples.
+that is closed under cyclic rotation --- as the sets used below are --- accounts
+for exactly $\frac{n}{3}\,|\mathcal{G}|$ triples.
 
 Let
 \[
@@ -473,19 +477,20 @@ See \texttt{experiments/E1\_exact\_values.py} and Table~\ref{tab:exact}.
 \toprule
 $n$ & $\Cat_{n-2}$ & $\binom{n}{3}$ & $T(n)$ & $\Phi(n)$ & LP-dual & s \\
 \midrule
- 6 & 14 & 20 & 8 & 8 & 8.0 & 0.02\\
- 7 & 42 & 35 & 14 & 14 & 14.0 & 0.02\\
- 8 & 132 & 56 & 20 & 20 & 20.0 & 0.01\\
- 9 & 429 & 84 & 30 & 30 & 30.0 & 0.04\\
-10 & 1430 & 120 & 40 & 40 & 40.0 & 0.07\\
-11 & 4862 & 165 & 55 & 55 & 55.0 & 0.33\\
-12 & 16796 & 220 & 70 & 70 & 70.0 & 1.57\\
-13 & 58786 & 286 & 91 & 91 & 91.0 & 22.3\\
-14 & 208012 & 364 & 112 & 112 & 112.0 & 96.1\\
+ 6 & 14 & 20 & 8 & 8 & 8.00 & 0.02\\
+ 7 & 42 & 35 & 14 & 14 & 14.00 & 0.02\\
+ 8 & 132 & 56 & 20 & 20 & 20.00 & 0.02\\
+ 9 & 429 & 84 & 30 & 30 & 30.00 & 0.03\\
+10 & 1430 & 120 & 40 & 40 & 40.00 & 0.06\\
+11 & 4862 & 165 & 55 & 55 & 55.00 & 0.32\\
+12 & 16796 & 220 & 70 & 70 & 70.00 & 1.51\\
+13 & 58786 & 286 & 91 & 91 & 91.00 & 21.9\\
+14 & 208012 & 364 & 112 & 112 & 112.00 & 92.6\\
 \bottomrule
 \end{tabular}
-\caption{Exact values (Theorem~\ref{thm:exact}). The LP-dual column is the
-optimum of the dual program; equality with $T(n)$ certifies optimality.}
+\caption{Exact values (Theorem~\ref{thm:exact}); see
+\texttt{experiments/results/E1\_exact\_values.csv}. The LP-dual column is the
+optimum of the dual program; its agreement with $T(n)$ certifies optimality.}
 \label{tab:exact}
 \end{table}
 

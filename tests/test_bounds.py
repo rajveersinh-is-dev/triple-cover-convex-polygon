@@ -145,6 +145,20 @@ def test_gap_sum_lemma_is_tight() -> None:
         assert stats["min_pair_sum"] == n - 2
 
 
+@pytest.mark.parametrize("m", range(3, 13))
+def test_antipodal_chords_cross(m: int) -> None:
+    """Lemma 3.7(ii) relies on: distinct antipodal chords of P_{2m} cross."""
+    from triplecover.polygon import crosses
+
+    n = 2 * m
+    chords = [tuple(sorted((v, (v + m) % n))) for v in range(n)]
+    chords = sorted(set(chords))
+    assert len(chords) == m
+    for i, c1 in enumerate(chords):
+        for c2 in chords[i + 1:]:
+            assert crosses(c1, c2), (n, c1, c2)
+
+
 @pytest.mark.parametrize("n", (6, 7, 8))
 def test_cover_family_reports(n: int) -> None:
     ok, stats = cover_family(fan_families(n), n)

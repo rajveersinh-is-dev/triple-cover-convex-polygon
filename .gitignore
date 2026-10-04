@@ -1,0 +1,21 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+build/
+dist/
+
+# LaTeX auxiliary files
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.bbl
+paper/*.bls
+paper/*.synctex.gz
+paper/main.pdf is intentionally committed; the rest is not
+
+# Local scratch
+scratch/
+*.tmp

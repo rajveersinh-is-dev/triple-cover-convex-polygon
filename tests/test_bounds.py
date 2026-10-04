@@ -14,6 +14,8 @@ from triplecover.bounds import (
     fan_families,
     fans_cover_types,
     max_ear_triangulation_count,
+    verify_antipodal_claims,
+    verify_gap_sum_lemma,
     verify_light_claims,
     verify_weight_bound,
     weights_of,
@@ -118,6 +120,29 @@ def test_face_budget_matches_ear_count(n: int) -> None:
         e = len(ears(tri[0], n))
         assert face_budget(tri, n) == (e, n - 2 * e, e - 2)
         assert weights_of(tri, n) <= 1.0 + 1e-12
+
+
+@pytest.mark.parametrize("n", range(5, 11))
+def test_gap_sum_lemma(n: int) -> None:
+    """Lemma 3.6: two distinct faces of a triangulation have gap sums >= n-2."""
+    ok, stats = verify_gap_sum_lemma(n)
+    assert ok, stats
+    assert stats["min_pair_sum"] >= n - 2
+
+
+@pytest.mark.parametrize("n", (6, 8, 10))
+def test_antipodal_claims(n: int) -> None:
+    """Lemma 3.7 (even n): half-faces share one antipodal chord; no light partner."""
+    ok, stats = verify_antipodal_claims(n)
+    assert ok, stats
+    assert stats["max_half_faces"] <= 2
+
+
+def test_gap_sum_lemma_is_tight() -> None:
+    """The bound n-2 of Lemma 3.6 is attained, so it cannot be improved."""
+    for n in range(5, 10):
+        _, stats = verify_gap_sum_lemma(n)
+        assert stats["min_pair_sum"] == n - 2
 
 
 @pytest.mark.parametrize("n", (6, 7, 8))

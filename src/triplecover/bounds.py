@@ -182,6 +182,74 @@ def lower_bound_certificate(n: int) -> dict:
     return out
 
 
+def verify_gap_sum_lemma(n: int) -> tuple[bool, dict]:
+    """Check Lemma 3.6: two distinct faces F, G of a triangulation satisfy
+    ``maxgap(F) + maxgap(G) >= n - 2``.
+
+    Returns ``(ok, stats)`` with the observed minimum of the left-hand side.
+    Exhaustive; only for small ``n``.
+    """
+    best = None
+    argmin = None
+    for _, faces in triangulations(n):
+        for i, f in enumerate(faces):
+            for g in faces[i + 1:]:
+                s = maxgap(f, n) + maxgap(g, n)
+                if best is None or s < best:
+                    best, argmin = s, (f, g)
+    return (best is not None and best >= n - 2), {
+        "n": n,
+        "min_pair_sum": best,
+        "required": n - 2,
+        "argmin": list(argmin) if argmin else None,
+    }
+
+
+def verify_antipodal_claims(n: int) -> tuple[bool, dict]:
+    """Check Lemma 3.7 for even ``n = 2M``.
+
+    (i) every face with ``maxgap = M-1`` contains the antipodal chord ``{v, v+M}``;
+    (ii) two such faces are the two faces adjacent to one and the same antipodal
+    chord, so there are at most two of them;
+    (iii) no face with ``maxgap <= M-2`` can be a face of a triangulation that also
+    contains a face with ``maxgap = M-1``.
+    """
+    if n % 2 != 0:
+        return True, {"n": n, "skipped": "odd n"}
+    m = n // 2
+    antipodal = {}
+    viol_i = viol_ii = viol_iii = 0
+    max_half = 0
+    for _, faces in triangulations(n):
+        half = [f for f in faces if maxgap(f, n) == m - 1]
+        light = [f for f in faces if maxgap(f, n) <= m - 2]
+        max_half = max(max_half, len(half))
+        if half and light:
+            viol_iii += 1
+        chords = set()
+        for f in half:
+            pairs = {
+                tuple(sorted((a, b)))
+                for a, b in ((f[0], f[1]), (f[1], f[2]), (f[0], f[2]))
+                if (b - a) % n == m or (a - b) % n == m
+            }
+            if len(pairs) != 1:
+                viol_i += 1
+            chords |= pairs
+        if len(chords) > 1:
+            viol_ii += 1
+        antipodal[len(chords)] = antipodal.get(len(chords), 0) + 1
+    ok = viol_i == 0 and viol_ii == 0 and viol_iii == 0 and max_half <= 2
+    return ok, {
+        "n": n,
+        "max_half_faces": max_half,
+        "violations_unique_antipode": viol_i,
+        "violations_shared_antipode": viol_ii,
+        "violations_light_with_half": viol_iii,
+        "antipode_cardinalities": dict(sorted(antipodal.items())),
+    }
+
+
 def fan_families(n: int) -> Iterable[Triangulation]:
     """The ``n`` fans, as a covering family of ``P_n``."""
     return [fan(v, n) for v in range(n)]

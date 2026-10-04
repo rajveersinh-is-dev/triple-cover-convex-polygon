@@ -1,0 +1,14 @@
+pyproject.toml
+src/triplecover/__init__.py
+src/triplecover/bounds.py
+src/triplecover/exact.py
+src/triplecover/polygon.py
+src/triplecover/triples.py
+src/triplecover.egg-info/PKG-INFO
+src/triplecover.egg-info/SOURCES.txt
+src/triplecover.egg-info/dependency_links.txt
+src/triplecover.egg-info/requires.txt
+src/triplecover.egg-info/top_level.txt
+tests/test_bounds.py
+tests/test_exact.py
+tests/test_polygon.py

@@ -1,0 +1,18 @@
+Metadata-Version: 2.4
+Name: triplecover
+Version: 1.0.0
+Summary: The triple-covering number of a convex n-gon: exact values, a sharp certificate lower bound, and verified constructions
+Author: daveaddams91-dev
+License: MIT
+Project-URL: Repository, https://github.com/daveaddams91-dev/triple-cover-convex-polygon
+Keywords: combinatorial geometry,convex polygon,triangulation,covering design,set cover
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Classifier: License :: OSI Approved :: MIT License
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=1.24
+Requires-Dist: scipy>=1.11
+Requires-Dist: matplotlib>=3.7
+Provides-Extra: dev
+Requires-Dist: pytest>=7.4; extra == "dev"

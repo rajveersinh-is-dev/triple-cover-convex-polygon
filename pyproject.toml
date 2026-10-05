@@ -9,7 +9,7 @@ description = "The triple-covering number of a convex n-gon: exact values, a sha
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-authors = [{ name = "daveaddams91-dev" }]
+authors = [{ name = "rajveersinh-is-dev" }]
 keywords = [
     "combinatorial geometry",
     "convex polygon",
@@ -32,7 +32,7 @@ dependencies = [
 dev = ["pytest>=7.4"]
 
 [project.urls]
-Repository = "https://github.com/daveaddams91-dev/triple-cover-convex-polygon"
+Repository = "https://github.com/rajveersinh-is-dev/triple-cover-convex-polygon"
 
 [tool.setuptools.packages.find]
 where = ["src"]

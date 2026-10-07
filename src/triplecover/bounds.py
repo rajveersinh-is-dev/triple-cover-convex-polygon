@@ -21,6 +21,8 @@ from typing import Iterable, Sequence
 from .polygon import Face, Triangulation, all_triples, dual_degrees, ears, triangulations
 from .triples import is_half, is_light, maxgap, phi, triple_type, weight
 
+
+
 __all__ = [
     "catalan",
     "ear_bounds",
@@ -163,7 +165,7 @@ def cover_family(tris: Sequence[Triangulation], n: int) -> tuple[bool, dict]:
         "total_weight": sum(weight(s, n) for s in all_triples(n)),
         "face_weight_sum": sum(weights_of(t, n) for t in tris),
     }
-    return (len(missing) == 0), stats
+    return (not missing), stats
 
 
 def lower_bound_certificate(n: int) -> dict:
@@ -193,7 +195,8 @@ def verify_gap_sum_lemma(n: int) -> tuple[bool, dict]:
     argmin = None
     for _, faces in triangulations(n):
         for i, f in enumerate(faces):
-            for g in faces[i + 1:]:
+            for g in faces[i + 1:
+                ]:
                 s = maxgap(f, n) + maxgap(g, n)
                 if best is None or s < best:
                     best, argmin = s, (f, g)

@@ -43,6 +43,13 @@ os.makedirs(FIGS, exist_ok=True)
 
 
 def fig1(ns, values):
+    """Fig1.
+    
+    Args:
+        ns:
+        values:
+    
+    """
     fig, ax = plt.subplots(figsize=(7.0, 4.2))
     ax.plot(ns, values, "o-", color="#1f4e79", label=r"$T(n)$ (certified exact)")
     ax.plot(ns, [phi(n) for n in ns], "s--", color="#c00000",
@@ -85,6 +92,12 @@ def fig1b(ns):
 
 
 def fig2(max_n=12):
+    """Fig2.
+    
+    Args:
+        max_n (int):
+    
+    """
     fig, ax = plt.subplots(figsize=(7.0, 4.2))
     xs = range(5, max_n + 1)
     maxlight, maxhalf, maxw = [], [], []
@@ -112,6 +125,13 @@ def fig2(max_n=12):
 
 
 def fig3(ns, values):
+    """Fig3.
+    
+    Args:
+        ns:
+        values:
+    
+    """
     fig, ax = plt.subplots(figsize=(7.0, 4.2))
     ax.plot(ns, values, "o-", color="#1f4e79", label=r"$T(n)$")
     ax.plot(ns, [(n ** 3) / 24 for n in ns], "k--", lw=0.9, label=r"$n^3/24$")
@@ -187,6 +207,9 @@ def fig5(n=10):
 
 
 def main():
+    """Entry point — parse arguments and run the main computation.
+    
+    """
     import csv
 
     path = os.path.join(RES, "E1_exact_values.csv")

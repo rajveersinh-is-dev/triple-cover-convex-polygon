@@ -1,10 +1,13 @@
 """Check the composition-counting formula used in the paper's counting lemma."""
-import sys
-from math import comb
+from __future__ import annotations
+
 from fractions import Fraction
-sys.path.insert(0, "src")
-from triplecover.polygon import all_triples
+from math import comb
+import sys
+
 from triplecover.triples import gaps, maxgap, phi, weight
+
+sys.path.insert(0, "src")
 
 
 def G_brute(s, m):
@@ -14,10 +17,19 @@ def G_brute(s, m):
 
 
 def C2(x):
+    """C2.
+    
+    Args:
+        x:
+    
+    Returns:
+        The computed result
+    
+    """
     return comb(x, 2) if x >= 2 else 0
 
 
-def G_formula(s, m):
+def G_formula(s, m) -> int:
     """Inclusion-exclusion: #{g >= 0 : sum = s, each <= m} (three parts)."""
     if s < 0 or m < 0:
         return 0

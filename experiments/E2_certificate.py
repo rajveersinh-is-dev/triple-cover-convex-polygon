@@ -18,17 +18,21 @@ import csv
 import os
 import sys
 
+from triplecover.bounds import verify_light_claims, verify_weight_bound  # noqa: E402
+from triplecover.triples import certificate_total, phi, weight  # noqa: E402
+
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
-from triplecover.bounds import verify_light_claims, verify_weight_bound  # noqa: E402
-from triplecover.polygon import all_triples  # noqa: E402
-from triplecover.triples import certificate_total, phi, weight  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RESULTS = os.path.join(HERE, "results")
 
 
 def main() -> None:
+    """Entry point — parse arguments and run the main computation.
+    
+    """
     ap = argparse.ArgumentParser()
     ap.add_argument("--exhaustive-max-n", type=int, default=12)
     ap.add_argument("--count-max-n", type=int, default=60)

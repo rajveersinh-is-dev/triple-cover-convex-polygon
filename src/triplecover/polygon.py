@@ -16,6 +16,8 @@ from __future__ import annotations
 
 from itertools import combinations
 from typing import Iterator
+import functools
+
 
 Diagonal = tuple[int, int]
 Face = tuple[int, int, int]
@@ -32,6 +34,16 @@ def boundary_edges(n: int) -> frozenset[Diagonal]:
 
 
 def is_boundary_edge(e: Diagonal, n: int) -> bool:
+    """Is boundary edge.
+    
+    Args:
+        e:
+        n:
+    
+    Returns:
+        The computed result
+    
+    """
     a, b = e
     return (b - a) % n == 1 or (a - b) % n == 1
 
@@ -72,6 +84,7 @@ def face_type_name(face: Face, n: int) -> str:
     return {2: "A", 1: "B", 0: "C"}[face_type(face, n)]
 
 
+@functools.lru_cache(maxsize=None)
 def _subpoly(lo: int, hi: int) -> Iterator[tuple[frozenset[Diagonal], tuple[Face, ...]]]:
     """All triangulations of the polygon ``lo, lo+1, ..., hi`` (inclusive).
 

@@ -21,17 +21,18 @@ from __future__ import annotations
 import argparse
 import csv
 import os
-import random
 import sys
-from collections import Counter
-
-import numpy as np
-
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from triplecover.exact import incidence_matrix, solve_exact  # noqa: E402
 from triplecover.polygon import all_triples, face_type, triangulations  # noqa: E402
 from triplecover.triples import certificate_total, is_half, is_light, phi, weight  # noqa: E402
+import numpy as np
+import random
+
+
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
+
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RESULTS = os.path.join(HERE, "results")
@@ -68,6 +69,9 @@ def greedy_cover(n: int, rng: random.Random, mode: str) -> int:
 
 
 def main() -> None:
+    """Entry point — parse arguments and run the main computation.
+    
+    """
     ap = argparse.ArgumentParser()
     ap.add_argument("--max-n", type=int, default=11)
     ap.add_argument("--restarts", type=int, default=40)

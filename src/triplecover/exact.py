@@ -39,10 +39,22 @@ class ExactResult:
 
     @property
     def formula(self) -> int:
+        """Formula.
+        
+        Returns:
+            The computed result
+        
+        """
         return phi(self.n)
 
     @property
     def matches_formula(self) -> bool:
+        """Matches formula.
+        
+        Returns:
+            The computed result
+        
+        """
         return self.value == self.formula
 
 

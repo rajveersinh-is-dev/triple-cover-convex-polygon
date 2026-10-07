@@ -15,23 +15,36 @@ from __future__ import annotations
 import argparse
 import csv
 import os
-import random
 import sys
 import time
-
-import numpy as np
-
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from triplecover.exact import incidence_matrix, solve_exact, solve_lp  # noqa: E402
 from triplecover.polygon import all_triples, triangulations  # noqa: E402
 from triplecover.triples import phi  # noqa: E402
+import numpy as np
+import random
+
+
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
+
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RESULTS = os.path.join(HERE, "results")
 
 
 def greedy(n: int, rng: random.Random, mode: str):
+    """Greedy.
+    
+    Args:
+        n:
+        rng:
+        mode:
+    
+    Returns:
+        The computed result
+    
+    """
     tris, triples, A = incidence_matrix(n)
     need = np.ones(A.shape[0], dtype=bool)
     chosen = np.zeros(A.shape[1], dtype=bool)
@@ -49,6 +62,9 @@ def greedy(n: int, rng: random.Random, mode: str):
 
 
 def main() -> None:
+    """Entry point — parse arguments and run the main computation.
+    
+    """
     ap = argparse.ArgumentParser()
     ap.add_argument("--max-n", type=int, default=13)
     ap.add_argument("--greedy-max-n", type=int, default=12)
